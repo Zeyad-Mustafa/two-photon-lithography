@@ -1,0 +1,139 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+
+# Documentation
+docs/_build/
+docs/_static/
+docs/_templates/
+site/
+
+# Data files (large experimental data)
+data/experimental_results/sem_images/*.tif
+data/experimental_results/sem_images/*.png
+data/experimental_results/*.hdf5
+data/calibration/*/raw_data/
+
+# Keep example files
+!data/designs/stl_files/example_*.stl
+!data/material_properties/photoresist_database.json
+
+# Configuration (keep templates, ignore local)
+configs/local_*.yaml
+configs/machine_specific.yaml
+*.local.yaml
+
+# Hardware-specific calibration
+hardware/calibration_data/*.dat
+hardware/calibration_data/*.csv
+
+# Temporary files
+*.tmp
+*.temp
+*.log
+logs/
+*.bak
+
+# Compiled extensions
+*.dll
+*.dylib
+
+# Simulation outputs (large files)
+simulation_outputs/
+*.vtk
+*.vtu
+
+# CAD and design files (if binary/large)
+*.step
+*.stp
+*.iges
+*.igs
+!hardware/cad_models/optical_setup.step
+
+# G-code and toolpath (generated)
+data/designs/gcode/*.gcode
+toolpaths/
+
+# Machine learning models
+models/*.h5
+models/*.pkl
+*.model
+
+# Environment variables
+.env
+.env.local
+
+# OS-specific
+Thumbs.db
+Desktop.ini
+
+# Packaging
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# pytype static type analyzer
+.pytype/
+
