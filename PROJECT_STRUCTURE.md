@@ -215,4 +215,4 @@ two-photon-lithography/
 **`README.md`**: Project overview, installation, quick start
 **`requirements.txt`**: Python dependencies
 **`setup.py`**: Package installation script
-**`.gitignore`**: Exclude data files, compiled code, and temporary files
+**`.gitignore`**: Exclude data files, compiled code, and temporary files¬
