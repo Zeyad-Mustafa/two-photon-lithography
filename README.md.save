@@ -1,0 +1,218 @@
+# Two-Photon Lithography Project Structure
+
+```
+two-photon-lithography/
+│
+├── README.md
+├── LICENSE
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+├── .gitignore
+├── requirements.txt
+├── setup.py
+├── pyproject.toml
+│
+├── docs/
+│   ├── index.md
+│   ├── getting_started.md
+│   ├── theory/
+│   │   ├── two_photon_absorption.md
+│   │   ├── laser_parameters.md
+│   │   └── photoresist_chemistry.md
+│   ├── tutorials/
+│   │   ├── basic_structure_design.md
+│   │   ├── parameter_optimization.md
+│   │   └── troubleshooting.md
+│   ├── api_reference/
+│   │   └── module_documentation.md
+│   └── examples/
+│       └── example_structures.md
+│
+├── src/
+│   └── tpl/
+│       ├── __init__.py
+│       ├── core/
+│       │   ├── __init__.py
+│       │   ├── laser_control.py
+│       │   ├── stage_control.py
+│       │   └── exposure_engine.py
+│       ├── design/
+│       │   ├── __init__.py
+│       │   ├── geometry.py
+│       │   ├── stl_converter.py
+│       │   ├── slicing.py
+│       │   └── path_planning.py
+│       ├── simulation/
+│       │   ├── __init__.py
+│       │   ├── absorption_model.py
+│       │   ├── polymerization_kinetics.py
+│       │   └── thermal_effects.py
+│       ├── optimization/
+│       │   ├── __init__.py
+│       │   ├── parameter_tuning.py
+│       │   ├── exposure_optimization.py
+│       │   └── distortion_correction.py
+│       ├── imaging/
+│       │   ├── __init__.py
+│       │   ├── alignment.py
+│       │   └── monitoring.py
+│       └── utils/
+│           ├── __init__.py
+│           ├── calibration.py
+│           ├── file_io.py
+│           └── visualization.py
+│
+├── hardware/
+│   ├── README.md
+│   ├── laser_specs/
+│   │   ├── femtosecond_laser.md
+│   │   └── wavelength_requirements.md
+│   ├── optics/
+│   │   ├── objective_selection.md
+│   │   └── optical_path.md
+│   ├── stage/
+│   │   ├── piezo_stage_specs.md
+│   │   └── positioning_accuracy.md
+│   ├── firmware/
+│   │   ├── arduino_controller/
+│   │   └── motor_drivers/
+│   └── cad_models/
+│       └── optical_setup.step
+│
+├── materials/
+│   ├── README.md
+│   ├── photoresists/
+│   │   ├── commercial_resists.md
+│   │   ├── custom_formulations.md
+│   │   └── characterization_data/
+│   ├── substrates/
+│   │   └── substrate_preparation.md
+│   └── developers/
+│       └── development_protocols.md
+│
+├── examples/
+│   ├── basic_shapes/
+│   │   ├── cube.py
+│   │   ├── sphere.py
+│   │   └── cylinder.py
+│   ├── photonic_crystals/
+│   │   ├── woodpile_structure.py
+│   │   └── diamond_lattice.py
+│   ├── microfluidics/
+│   │   ├── channel_network.py
+│   │   └── mixing_chamber.py
+│   ├── metamaterials/
+│   │   ├── split_ring_resonator.py
+│   │   └── chiral_structure.py
+│   └── biomedical/
+│       ├── tissue_scaffold.py
+│       └── drug_delivery_device.py
+│
+├── tests/
+│   ├── __init__.py
+│   ├── unit/
+│   │   ├── test_geometry.py
+│   │   ├── test_path_planning.py
+│   │   ├── test_laser_control.py
+│   │   └── test_simulation.py
+│   ├── integration/
+│   │   ├── test_full_workflow.py
+│   │   └── test_hardware_interface.py
+│   └── fixtures/
+│       └── test_geometries.stl
+│
+├── scripts/
+│   ├── calibration/
+│   │   ├── laser_power_calibration.py
+│   │   ├── stage_calibration.py
+│   │   └── refractive_index_matching.py
+│   ├── preprocessing/
+│   │   ├── design_validator.py
+│   │   └── gcode_generator.py
+│   ├── postprocessing/
+│   │   ├── image_analysis.py
+│   │   └── structure_characterization.py
+│   └── automation/
+│       ├── batch_fabrication.py
+│       └── parameter_sweep.py
+│
+├── data/
+│   ├── calibration/
+│   │   ├── laser_power_curves/
+│   │   └── stage_accuracy/
+│   ├── designs/
+│   │   ├── stl_files/
+│   │   └── gcode/
+│   ├── experimental_results/
+│   │   ├── sem_images/
+│   │   ├── optical_characterization/
+│   │   └── mechanical_testing/
+│   └── material_properties/
+│       └── photoresist_database.json
+│
+├── notebooks/
+│   ├── 01_design_workflow.ipynb
+│   ├── 02_parameter_optimization.ipynb
+│   ├── 03_simulation_analysis.ipynb
+│   ├── 04_data_visualization.ipynb
+│   └── 05_machine_learning_optimization.ipynb
+│
+├── configs/
+│   ├── default_config.yaml
+│   ├── laser_profiles/
+│   │   ├── high_resolution.yaml
+│   │   └── fast_writing.yaml
+│   └── material_configs/
+│       ├── ip_dip.yaml
+│       └── ormocomp.yaml
+│
+├── gui/
+│   ├── main_window.py
+│   ├── design_viewer.py
+│   ├── control_panel.py
+│   └── live_monitoring.py
+│
+├── benchmarks/
+│   ├── resolution_test.py
+│   ├── speed_comparison.py
+│   └── accuracy_assessment.py
+│
+└── ci_cd/
+    ├── .github/
+    │   └── workflows/
+    │       ├── tests.yml
+    │       ├── build.yml
+    │       └── documentation.yml
+    └── docker/
+        ├── Dockerfile
+        └── docker-compose.yml
+```
+
+## Key Directory Explanations
+
+**`src/tpl/`**: Core Python package with modular architecture
+- `core/`: Hardware control and exposure engine
+- `design/`: CAD tools and path generation
+- `simulation/`: Physical modeling and prediction
+- `optimization/`: Parameter tuning algorithms
+
+**`hardware/`**: Hardware specifications, firmware, and CAD models
+
+**`materials/`**: Photoresist formulations and characterization data
+
+**`examples/`**: Ready-to-run fabrication examples across different applications
+
+**`data/`**: Experimental data, calibration results, and design files
+
+**`notebooks/`**: Jupyter notebooks for interactive analysis and tutorials
+
+**`configs/`**: YAML configuration files for different fabrication scenarios
+
+**`gui/`**: Graphical user interface components (optional)
+
+## Essential Files
+
+**`README.md`**: Project overview, installation, quick start
+**`requirements.txt`**: Python dependencies
+**`setup.py`**: Package installation script
+**`.gitignore`**: Exclude data files, compiled code, and temporary files
