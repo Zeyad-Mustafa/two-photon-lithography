@@ -1,0 +1,542 @@
+# Ormocomp Hybrid Polymer Configuration
+# ======================================
+#
+# Material-specific configuration for Ormocomp (ORMOCER) photoresist
+# Inorganic-organic hybrid material with excellent thermal and mechanical properties
+#
+# Author: Zeyad Mustafa
+# Date: December 2024
+# BTU Cottbus-Senftenberg
+# Version: 1.0
+
+# Material Identification
+# -----------------------
+material:
+  name: "Ormocomp"
+  full_name: "Ormocomp Hybrid Polymer"
+  alternative_names: ["ORMOCER", "Ceramic Hybrid Polymer"]
+  manufacturer: "Micro Resist Technology GmbH"
+  manufacturer_code: "Ormocomp"
+  
+  # Batch information
+  batch_number: "2024-09-20"
+  manufacture_date: "2024-09-20"
+  expiration_date: "2025-09-20"
+  opened_date: "2024-10-15"
+  
+  # Product information
+  catalog_number: "7000.500"
+  package_size: 100   # mL
+  cost_per_ml: 8      # EUR (much cheaper than IP-Dip!)
+
+# Chemical Composition
+# --------------------
+composition:
+  type: "negative_tone"
+  base_chemistry: "inorganic_organic_hybrid"
+  
+  # Hybrid structure
+  structure:
+    inorganic_backbone: "Si-O network"
+    organic_groups: "methacrylate functional"
+    crosslinking: "both inorganic and organic"
+    
+  components:
+    hybrid_monomers:
+      concentration: 60  # wt%
+      type: "alkoxysilanes with polymerizable groups"
+      
+    organic_monomers:
+      concentration: 30  # wt%
+      type: "methacrylates"
+      
+    photoinitiator:
+      concentration: 2   # wt%
+      type: "radical photoinitiator"
+      
+    solvent:
+      concentration: 8   # wt%
+      type: "proprietary"
+
+# Physical Properties
+# -------------------
+physical:
+  state: "liquid"
+  color: "slightly yellow"
+  transparency: "transparent"
+  
+  # Density
+  density: 1.18       # g/cm³ at 20°C (uncured)
+  density_cured: 1.24 # g/cm³ (fully cured)
+  
+  # Viscosity (higher than IP-Dip!)
+  viscosity: 150      # mPa·s at 20°C
+  viscosity_range: [100, 200]  # varies with temperature
+  viscosity_temperature_coeff: -5  # mPa·s per °C
+  
+  # Thermal properties
+  glass_transition_temp: 180  # °C (much higher than IP-Dip!)
+  decomposition_temp: 350     # °C (excellent thermal stability)
+  flash_point: 80             # °C
+  
+  # Surface properties
+  surface_tension: 28         # mN/m at 20°C
+  contact_angle_glass: 20     # degrees
+
+# Optical Properties
+# ------------------
+optical:
+  # Refractive index
+  refractive_index:
+    uncured: 1.48
+    cured_after_softbake: 1.51
+    fully_cured: 1.52
+    wavelength_ref: 589  # nm
+    temperature: 20      # °C
+    
+  # Transmission (excellent transparency!)
+  transmission:
+    400nm: 0.90
+    532nm: 0.98
+    633nm: 0.99
+    780nm: 0.95
+    1550nm: 0.93
+    
+  # Very low birefringence (good for optics)
+  birefringence: 0.002  # Δn
+
+# Two-Photon Lithography Properties
+# ----------------------------------
+tpl_properties:
+  # Optimal laser parameters
+  laser:
+    optimal_wavelength: 780  # nm
+    wavelength_range: [750, 850]  # nm
+    
+  # Power characteristics (less sensitive than IP-Dip)
+  power:
+    threshold: 25        # mW (higher than IP-Dip!)
+    threshold_range: [22, 28]
+    optimal_working: 30  # mW
+    maximum_safe: 50     # mW
+    
+  # Speed characteristics (slower than IP-Dip)
+  speed:
+    minimum: 10000
+    optimal: 50000       # μm/s
+    maximum: 80000       # μm/s (lower than IP-Dip)
+    high_quality_max: 50000
+    
+  # Resolution (slightly lower than IP-Dip)
+  resolution:
+    lateral_typical: 300      # nm
+    lateral_optimal: 250      # nm
+    axial_typical: 800        # nm
+    axial_optimal: 600        # nm
+    
+  # Voxel dimensions
+  voxel:
+    lateral: 350        # nm
+    axial: 850          # nm
+
+# Fabrication Parameters
+# ----------------------
+fabrication:
+  standard:
+    power: 30
+    speed: 50000
+    layer_height: 0.5
+    hatch_distance: 0.6
+    description: "Standard Ormocomp fabrication"
+    
+  high_resolution:
+    power: 26
+    speed: 35000
+    layer_height: 0.3
+    hatch_distance: 0.4
+    description: "Best resolution for Ormocomp"
+    
+  optical_components:
+    power: 28
+    speed: 40000
+    layer_height: 0.5
+    hatch_distance: 0.5
+    description: "Low shrinkage optical elements"
+    
+  thick_structures:
+    power: 32
+    speed: 60000
+    layer_height: 1.0
+    hatch_distance: 0.8
+    description: "Large, robust structures"
+    
+  # First layer
+  first_layer:
+    power_multiplier: 1.4   # +40% (needs more for hybrid)
+    speed_multiplier: 0.4   # 40% speed
+    dwell_time: 150         # ms
+
+# Processing Requirements
+# -----------------------
+processing:
+  # IMPORTANT: Ormocomp requires thermal processing!
+  thermal_processing_required: true
+  
+  # Soft bake (REQUIRED before development)
+  soft_bake:
+    temperature: 95     # °C
+    time: 5             # minutes
+    ramp_rate: 2        # °C/min
+    atmosphere: "air"
+    purpose: "Partial cure, enables development"
+    essential: true
+    
+  # Hard bake (optional but recommended)
+  hard_bake:
+    temperature: 150    # °C
+    time: 30            # minutes
+    ramp_rate: 2        # °C/min
+    atmosphere: "air"
+    purpose: "Complete cure, max properties"
+    recommended: true
+
+# Development Process
+# -------------------
+development:
+  # Primary development (use Ormodev!)
+  primary:
+    developer: "Ormodev"
+    developer_full_name: "Ormocomp Developer"
+    manufacturer: "Micro Resist Technology"
+    time: 25            # minutes (longer than IP-Dip!)
+    temperature: 22     # °C
+    agitation: "gentle"
+    
+    # Alternative developers
+    alternative_1: "PGMEA"
+    alternative_1_time: 30  # minutes
+    
+  # Rinsing
+  rinse:
+    solvent: "IPA"
+    time_per_rinse: 3   # minutes (longer than IP-Dip)
+    number_of_rinses: 3 # one more rinse
+    final_rinse: "DI water"  # optional
+
+# Drying Process
+# --------------
+drying:
+  # Critical point drying
+  critical_point:
+    required_for: "aspect_ratio > 8:1"
+    parameters_same_as_ip_dip: true
+    
+  # Air drying (more robust than IP-Dip)
+  air:
+    maximum_aspect_ratio: "5:1"  # Better than IP-Dip!
+    method: "slow evaporation"
+    success_rate: "higher than IP-Dip"
+
+# Post-Processing
+# ---------------
+post_processing:
+  # UV post-cure (optional for Ormocomp)
+  uv_cure:
+    recommended: false  # Thermal cure is primary
+    time: 15
+    
+  # Thermal post-cure (RECOMMENDED)
+  thermal_cure:
+    recommended: true
+    temperature: 150    # °C
+    time: 30            # minutes
+    atmosphere: "air"
+    effects:
+      conversion_increase: 15  # %
+      hardness_increase: 40    # %
+      thermal_stability: "significantly improved"
+
+# Mechanical Properties
+# ---------------------
+mechanical:
+  # After soft bake + development
+  soft_baked:
+    youngs_modulus: 2.5   # GPa
+    tensile_strength: 50  # MPa
+    
+  # After hard bake (EXCELLENT!)
+  hard_baked:
+    youngs_modulus: 3.0   # GPa
+    tensile_strength: 75  # MPa
+    elongation_at_break: 7  # %
+    hardness: 0.25        # GPa
+    
+  # Comparison to IP-Dip
+  vs_ip_dip:
+    higher_temperature_stability: true
+    better_chemical_resistance: true
+    slightly_lower_modulus: true
+
+# Shrinkage Behavior (MAJOR ADVANTAGE!)
+# --------------------------------------
+shrinkage:
+  # Polymerization shrinkage (MUCH LOWER!)
+  polymerization:
+    volumetric: 5       # % (vs 12% for IP-Dip)
+    lateral: 2          # %
+    axial: 3            # %
+    
+  # Development shrinkage
+  development:
+    volumetric: 1       # %
+    
+  # Post-cure shrinkage
+  soft_bake: 1          # %
+  hard_bake: 2          # %
+    
+  # Total shrinkage
+  total:
+    volumetric: 9       # % (vs 16% for IP-Dip!)
+    lateral: 3          # %
+    axial: 6            # %
+    
+  # Compensation strategy
+  compensation:
+    recommended: true
+    scale_factor_xy: 1.03   # 3% expansion
+    scale_factor_z: 1.06    # 6% expansion
+    
+  # Key advantage
+  advantage: "Much better dimensional stability than pure organic resists"
+
+# Chemical Resistance (EXCELLENT!)
+# ---------------------------------
+chemical_resistance:
+  # Superior to IP-Dip due to Si-O backbone
+  excellent:
+    - "Water (even hot)"
+    - "Alcohols"
+    - "Weak acids (pH > 2)"
+    - "Weak bases (pH < 12)"
+    - "Organic solvents (after full cure)"
+    
+  good:
+    - "Acetone"
+    - "Toluene"
+    - "MEK"
+    - "THF"
+    
+  resistant_to:
+    - "Thermal cycling"
+    - "UV exposure"
+    - "Oxidation"
+
+# Thermal Stability (MAJOR ADVANTAGE!)
+# -------------------------------------
+thermal:
+  continuous_use_temperature: 150  # °C (vs 80°C for IP-Dip!)
+  short_term_max: 200              # °C
+  glass_transition: 180            # °C
+  degradation_onset: 350           # °C (excellent!)
+  coefficient_thermal_expansion: 50  # ppm/K (lower than IP-Dip)
+  
+  applications:
+    - "High temperature sensors"
+    - "Thermal cycling devices"
+    - "Automotive applications"
+    - "Aerospace components"
+
+# Storage and Handling
+# --------------------
+storage:
+  temperature: 4      # °C
+  temperature_range: [2, 8]
+  light: "dark"
+  container: "amber glass bottle"
+  
+  # Shelf life
+  unopened: 12        # months
+  opened: 6           # months (longer than IP-Dip!)
+  working_life: 24    # hours (more stable)
+  
+  # Before use
+  equilibration_time: 60  # minutes (higher viscosity)
+  mixing_required: true
+  mixing_method: "gentle stirring"
+  filtering_recommended: true
+  filter_size: 0.45   # μm
+
+# Safety Information
+# ------------------
+safety:
+  # Similar to IP-Dip but contains siloxanes
+  hazard_statements:
+    - "H315: Causes skin irritation"
+    - "H319: Causes serious eye irritation"
+    - "H317: May cause allergic skin reaction"
+    - "H335: May cause respiratory irritation"
+    
+  ppe:
+    gloves: "nitrile"
+    eye_protection: "safety goggles"
+    respiratory: "fume hood recommended during heating"
+    lab_coat: "required"
+    
+  # Thermal processing safety
+  heating_precautions:
+    - "Use well-ventilated area"
+    - "Avoid breathing vapors during baking"
+    - "Hot samples - handle with care"
+
+# Advantages vs IP-Dip
+# --------------------
+advantages:
+  dimensional_stability:
+    shrinkage_reduction: 44  # % less shrinkage
+    description: "Much better for precision optical components"
+    
+  thermal_stability:
+    temperature_increase: 88  # % higher use temperature
+    description: "Enables high-temperature applications"
+    
+  chemical_resistance:
+    improvement: "significant"
+    description: "Better solvent and environmental resistance"
+    
+  cost:
+    cost_reduction: 84  # % cheaper per mL
+    description: "Much more economical for large structures"
+    
+  shelf_life:
+    improvement: "2× longer when opened"
+
+# Disadvantages vs IP-Dip
+# -----------------------
+disadvantages:
+  sensitivity:
+    threshold_increase: 67  # % higher power needed
+    description: "Less sensitive, requires more power"
+    
+  resolution:
+    reduction: 25     # % larger minimum features
+    description: "Not ideal for sub-200nm features"
+    
+  processing_complexity:
+    thermal_steps: 2  # soft bake + hard bake
+    description: "Requires hot plate/oven"
+    
+  speed:
+    max_speed_reduction: 33  # % slower maximum speed
+    description: "Longer fabrication times"
+    
+  viscosity:
+    increase: 200     # % higher viscosity
+    description: "More difficult to dispense and handle"
+
+# Best Applications
+# -----------------
+best_for:
+  - "Optical components (lenses, waveguides)"
+  - "High-temperature devices"
+  - "Precision mechanical parts"
+  - "Large structures (cost effective)"
+  - "Harsh environment applications"
+  - "Production runs (more economical)"
+  
+avoid_for:
+  - "Sub-200nm features (use IP-Dip)"
+  - "Ultra-high aspect ratios (>15:1)"
+  - "Applications without thermal processing capability"
+
+# Processing Workflow Summary
+# ---------------------------
+workflow:
+  step_1: "Fabrication (30 mW, 50k μm/s)"
+  step_2: "Soft bake (95°C, 5 min) - ESSENTIAL"
+  step_3: "Development (Ormodev, 25 min)"
+  step_4: "Rinse (IPA, 3× 3 min)"
+  step_5: "Dry (CPD or careful air dry)"
+  step_6: "Hard bake (150°C, 30 min) - RECOMMENDED"
+  step_7: "Characterization"
+  
+  total_time: "~2 hours (vs 1 hour for IP-Dip)"
+  complexity: "Higher (thermal steps)"
+  result: "Superior thermal and dimensional stability"
+
+# Quality Control
+# ---------------
+quality_control:
+  pre_use_checks:
+    - "Viscosity check (should pour slowly)"
+    - "Color (pale yellow acceptable)"
+    - "No phase separation"
+    - "Expiration date"
+    
+  process_verification:
+    - "Soft bake temperature verification"
+    - "Development time optimization"
+    - "Hard bake completion check"
+    
+  post_fabrication:
+    - "Dimensional accuracy measurement"
+    - "Surface quality inspection"
+    - "Mechanical probe test"
+    - "Thermal cycling test (if applicable)"
+
+# Troubleshooting
+# ---------------
+troubleshooting:
+  structures_wash_away:
+    cause: "No soft bake before development"
+    solution: "ALWAYS soft bake at 95°C for 5 min"
+    
+  poor_resolution:
+    cause: "Insufficient power or too fast speed"
+    solution: "Increase power to 30-35 mW, reduce speed"
+    
+  cracking_during_baking:
+    cause: "Too fast temperature ramp"
+    solution: "Use 2°C/min ramp rate, avoid thermal shock"
+    
+  sticky_surface:
+    cause: "Incomplete cure"
+    solution: "Perform hard bake at 150°C for 30 min"
+
+# References
+# ----------
+references:
+  - "Micro Resist Technology Ormocomp Datasheet"
+  - "Houbertz et al., Thin Solid Films 442, 194 (2003)"
+  - "Serbin et al., Opt. Lett. 28, 301 (2003)"
+
+# Notes
+# -----
+notes: |
+  Ormocomp is the best choice when dimensional accuracy and thermal
+  stability are critical, despite requiring more complex processing.
+  
+  KEY FEATURES:
+  - Very low shrinkage (<5% vs 12% for IP-Dip)
+  - Excellent thermal stability (>150°C continuous use)
+  - Superior chemical resistance
+  - Much more economical
+  - Hybrid inorganic-organic structure
+  
+  TRADE-OFFS:
+  - Requires thermal processing (hot plate needed)
+  - Lower sensitivity (higher power required)
+  - Slightly lower resolution
+  - Higher viscosity (harder to handle)
+  
+  IDEAL FOR:
+  - Optical components (lenses, diffractive elements)
+  - MEMS devices
+  - High-temperature applications
+  - Production (cost-effective)
+  - Research requiring dimensional precision
+
+config_version: "1.0"
+last_modified: "2024-12-09"
+modified_by: "Zeyad Mustafa"
+validated: true
+validation_date: "2024-12-09"
