@@ -1,0 +1,543 @@
+# IP-Dip Photoresist Configuration
+# =================================
+#
+# Material-specific configuration for Nanoscribe IP-Dip photoresist
+# Optimized parameters based on experimental characterization
+#
+# Author: Zeyad Mustafa
+# Date: December 2024
+# BTU Cottbus-Senftenberg
+# Version: 1.0
+
+# Material Identification
+# -----------------------
+material:
+  name: "IP-Dip"
+  full_name: "IP-Dip Photoresist"
+  manufacturer: "Nanoscribe GmbH"
+  manufacturer_code: "IP-Dip"
+  cas_number: "N/A"  # Proprietary formulation
+  
+  # Batch information (update for each batch)
+  batch_number: "2024-10-15"
+  manufacture_date: "2024-10-15"
+  expiration_date: "2025-10-15"
+  opened_date: "2024-11-01"  # Track when container opened
+  
+  # Product information
+  catalog_number: "IP-DIP-10"
+  package_size: 10  # mL
+  cost_per_ml: 50   # EUR (approximate)
+
+# Chemical Composition
+# --------------------
+composition:
+  type: "negative_tone"  # Negative resist (exposed areas remain)
+  base_chemistry: "acrylate"
+  
+  components:
+    monomers:
+      type: "multifunctional acrylates"
+      concentration: 92  # wt% (approximate)
+      functionality: "tri/tetra-functional"
+      
+    photoinitiator:
+      type: "proprietary"
+      concentration: 3   # wt% (approximate)
+      tpa_cross_section: 120  # GM at 780 nm
+      quantum_yield: 0.5  # radical generation efficiency
+      
+    additives:
+      inhibitors: 0.01   # wt%
+      stabilizers: 0.1   # wt%
+      other: 4.89        # wt% (solvents, etc.)
+
+# Physical Properties
+# -------------------
+physical:
+  # State and appearance
+  state: "liquid"
+  color: "colorless to slightly yellow"
+  transparency: "transparent"
+  
+  # Density
+  density: 1.10       # g/cm³ at 20°C
+  density_cured: 1.20 # g/cm³ (polymerized)
+  
+  # Viscosity
+  viscosity: 50       # mPa·s at 20°C
+  viscosity_temperature_dependence: -2.5  # mPa·s per °C
+  
+  # Thermal properties
+  glass_transition_temp: 90  # °C (cured polymer)
+  decomposition_temp: 250    # °C
+  flash_point: 93            # °C
+  
+  # Surface properties
+  surface_tension: 35        # mN/m at 20°C
+  contact_angle_glass: 15    # degrees (good wetting)
+
+# Optical Properties
+# ------------------
+optical:
+  # Refractive index
+  refractive_index:
+    uncured: 1.48
+    cured: 1.52
+    wavelength_ref: 589  # nm (sodium D-line)
+    temperature: 20      # °C
+    
+  # Wavelength-dependent RI (Cauchy coefficients)
+  cauchy_coefficients:
+    A: 1.50
+    B: 0.01
+    C: 0.0001
+    # n(λ) = A + B/λ² + C/λ⁴ (λ in μm)
+    
+  # Transmission
+  transmission:
+    400nm: 0.85   # UV edge
+    532nm: 0.98   # Visible
+    633nm: 0.99
+    780nm: 0.95   # Writing wavelength
+    1550nm: 0.92  # IR
+    
+  # Absorption
+  absorption_coefficient:
+    single_photon_780nm: 0.1  # cm⁻¹ (very low)
+    effective_tpa: 0.5        # cm/GW (two-photon)
+
+# Two-Photon Lithography Properties
+# ----------------------------------
+tpl_properties:
+  # Optimal laser parameters
+  laser:
+    optimal_wavelength: 780  # nm
+    wavelength_range: [760, 820]  # nm (acceptable range)
+    
+  # Power characteristics
+  power:
+    threshold: 15        # mW (typical at sample)
+    threshold_range: [12, 18]  # mW (batch variation)
+    optimal_working: 20  # mW (1.3× threshold)
+    maximum_safe: 40     # mW (avoid thermal damage)
+    
+    # Power vs feature size (empirical)
+    # feature_width [nm] ≈ 150 + 15 × power [mW]
+    power_to_width_slope: 15  # nm/mW
+    minimum_width_offset: 150 # nm
+    
+  # Speed characteristics
+  speed:
+    minimum: 10000       # μm/s
+    optimal: 50000       # μm/s
+    maximum: 120000      # μm/s
+    
+    # Speed vs quality
+    high_quality_max: 60000    # μm/s
+    production_speed: 80000    # μm/s
+    
+  # Resolution
+  resolution:
+    lateral_typical: 200      # nm
+    lateral_optimal: 150      # nm (best conditions)
+    axial_typical: 600        # nm
+    axial_optimal: 500        # nm
+    
+  # Dose characteristics
+  dose:
+    threshold_dose: 50        # mJ/cm²
+    optimal_dose: 70          # mJ/cm²
+    saturation_dose: 200      # mJ/cm²
+    
+  # Voxel dimensions (at optimal power)
+  voxel:
+    lateral: 250        # nm (FWHM)
+    axial: 700          # nm (FWHM)
+
+# Fabrication Parameters
+# ----------------------
+fabrication:
+  # Recommended settings for different applications
+  standard:
+    power: 20           # mW
+    speed: 50000        # μm/s
+    layer_height: 0.3   # μm
+    hatch_distance: 0.5 # μm
+    description: "General purpose fabrication"
+    
+  high_resolution:
+    power: 18
+    speed: 30000
+    layer_height: 0.2
+    hatch_distance: 0.3
+    description: "Maximum resolution (200 nm features)"
+    
+  high_speed:
+    power: 28
+    speed: 100000
+    layer_height: 0.5
+    hatch_distance: 0.7
+    description: "Fast fabrication (larger structures)"
+    
+  photonic_structures:
+    power: 20
+    speed: 60000
+    layer_height: 1.0
+    hatch_distance: 0.4
+    description: "Woodpile, gratings, etc."
+    
+  mechanical_structures:
+    power: 25
+    speed: 40000
+    layer_height: 0.4
+    hatch_distance: 0.6
+    description: "High strength, robust"
+    
+  # First layer (adhesion layer)
+  first_layer:
+    power_multiplier: 1.3   # +30% power
+    speed_multiplier: 0.5   # Half speed
+    dwell_time: 100         # ms additional
+
+# Development Process
+# -------------------
+development:
+  # Primary development
+  primary:
+    developer: "PGMEA"
+    developer_full_name: "Propylene Glycol Monomethyl Ether Acetate"
+    time: 20            # minutes
+    temperature: 22     # °C
+    agitation: "gentle" # "none", "gentle", "moderate", "vigorous"
+    agitation_frequency: 0.1  # Hz (gentle swirling)
+    
+    # Time vs structure size
+    # Larger structures need longer development
+    time_per_100um: 5   # minutes per 100 μm structure dimension
+    
+  # Rinsing
+  rinse:
+    solvent: "IPA"
+    solvent_full_name: "Isopropanol"
+    time_per_rinse: 2   # minutes
+    number_of_rinses: 2
+    fresh_solvent: true  # Use fresh IPA for each rinse
+    
+  # Alternative developers (if PGMEA unavailable)
+  alternatives:
+    - name: "Acetone"
+      time: 10          # minutes (faster but harsher)
+      caution: "May damage delicate structures"
+      
+    - name: "MIBK:IPA (1:3)"
+      time: 25
+      caution: "Slower but gentler"
+
+# Drying Process
+# --------------
+drying:
+  # Critical point drying (REQUIRED for high aspect ratios)
+  critical_point:
+    required_for: "aspect_ratio > 5:1"
+    co2_pressure: 73    # bar (critical point)
+    co2_temperature: 31 # °C (critical point)
+    exchange_cycles: 10 # solvent to CO₂
+    venting_rate: 1     # bar/minute
+    total_time: 120     # minutes
+    
+  # Air drying (only for low aspect ratio)
+  air:
+    maximum_aspect_ratio: "3:1"
+    method: "slow evaporation"
+    time: 60            # minutes
+    temperature: 22     # °C
+    humidity: 40        # % RH
+    caution: "Risk of collapse for delicate structures"
+
+# Post-Processing
+# ---------------
+post_processing:
+  # UV post-cure
+  uv_cure:
+    recommended: true
+    lamp_type: "broadband UV"
+    wavelength_range: [320, 400]  # nm
+    intensity: 20       # mW/cm²
+    time: 20            # minutes
+    atmosphere: "air"
+    
+    effects:
+      conversion_increase: 25  # % (from ~70% to ~95%)
+      hardness_increase: 30    # %
+      shrinkage: 2      # % additional
+      
+  # Thermal annealing (optional)
+  thermal_anneal:
+    recommended: false
+    temperature: 150    # °C
+    time: 60            # minutes
+    atmosphere: "nitrogen"
+    effects:
+      stress_relief: 50 # %
+      shrinkage: 3      # % additional
+      mechanical_improvement: 20  # %
+
+# Mechanical Properties
+# ---------------------
+mechanical:
+  # As-fabricated (after development + CPD)
+  as_fabricated:
+    youngs_modulus: 3.5   # GPa
+    tensile_strength: 60  # MPa
+    elongation_at_break: 5  # %
+    hardness: 0.2         # GPa (nanoindentation)
+    
+  # After UV post-cure
+  post_cured:
+    youngs_modulus: 4.5   # GPa (+29%)
+    tensile_strength: 80  # MPa (+33%)
+    elongation_at_break: 4  # % (more brittle)
+    hardness: 0.3         # GPa (+50%)
+
+# Shrinkage Behavior
+# ------------------
+shrinkage:
+  # Polymerization shrinkage
+  polymerization:
+    volumetric: 12      # %
+    lateral: 4          # %
+    axial: 8            # %
+    anisotropy_factor: 2.0  # axial/lateral
+    
+  # Development shrinkage
+  development:
+    volumetric: 2       # %
+    
+  # Post-cure shrinkage
+  post_cure:
+    uv_only: 2          # %
+    thermal: 3          # %
+    
+  # Total shrinkage
+  total:
+    volumetric: 16      # % (polymerization + development + post-cure)
+    lateral: 5          # %
+    axial: 11           # %
+    
+  # Compensation strategy
+  compensation:
+    recommended: true
+    scale_factor_xy: 1.05   # 5% expansion in CAD
+    scale_factor_z: 1.11    # 11% expansion in CAD
+
+# Chemical Resistance
+# -------------------
+chemical_resistance:
+  # After full cure
+  excellent:
+    - "Water"
+    - "Ethanol"
+    - "Isopropanol"
+    - "Dilute acids (pH > 3)"
+    - "Dilute bases (pH < 11)"
+    
+  good:
+    - "Acetone (short exposure)"
+    - "Toluene (short exposure)"
+    - "MEK"
+    
+  poor:
+    - "Concentrated acids"
+    - "Concentrated bases"
+    - "Chlorinated solvents"
+    - "Strong oxidizers"
+
+# Thermal Stability
+# -----------------
+thermal:
+  continuous_use_temperature: 80  # °C
+  short_term_max: 120            # °C (< 1 hour)
+  glass_transition: 90           # °C
+  degradation_onset: 250         # °C
+  coefficient_thermal_expansion: 80  # ppm/K
+
+# Storage and Handling
+# --------------------
+storage:
+  # Storage conditions
+  temperature: 4      # °C (refrigerator)
+  temperature_range: [2, 8]  # °C (acceptable)
+  light: "dark"       # Protect from light
+  container: "amber glass bottle"
+  atmosphere: "air"   # No special atmosphere needed
+  
+  # Shelf life
+  unopened: 12        # months
+  opened: 3           # months
+  working_life: 8     # hours (once dispensed)
+  
+  # Before use
+  equilibration_time: 30  # minutes (bring to room temp)
+  mixing_required: true
+  mixing_method: "gentle inversion"
+  filtering: "optional"
+  filter_size: 0.45   # μm (if filtering)
+
+# Safety Information
+# ------------------
+safety:
+  # Hazard classification
+  hazard_statements:
+    - "H315: Causes skin irritation"
+    - "H317: May cause allergic skin reaction"
+    - "H319: Causes serious eye irritation"
+    
+  precautionary_statements:
+    - "P280: Wear protective gloves/eye protection"
+    - "P302+P352: IF ON SKIN: Wash with plenty of water"
+    - "P305+P351+P338: IF IN EYES: Rinse cautiously with water"
+    - "P333+P313: If skin irritation occurs: Get medical advice"
+    
+  # Personal protective equipment
+  ppe:
+    gloves: "nitrile"   # NOT latex (acrylates penetrate)
+    eye_protection: "safety goggles"
+    lab_coat: "required"
+    ventilation: "fume hood recommended"
+    
+  # First aid
+  first_aid:
+    skin_contact: "Wash with soap and water for 15 minutes"
+    eye_contact: "Rinse with water for 15 minutes, seek medical attention"
+    ingestion: "Do not induce vomiting, seek medical attention"
+    inhalation: "Move to fresh air"
+    
+  # Disposal
+  disposal:
+    method: "Cure with UV light, dispose as solid waste"
+    uncured_waste: "Chemical waste - follow institutional protocols"
+    contaminated_materials: "Chemical waste"
+
+# Quality Control
+# ---------------
+quality_control:
+  # Tests before use
+  pre_use_checks:
+    - "Visual inspection (color, clarity)"
+    - "Expiration date"
+    - "Storage temperature log"
+    - "Test structure fabrication"
+    
+  # Acceptance criteria
+  acceptance:
+    color: "colorless to pale yellow"
+    clarity: "no precipitates or cloudiness"
+    viscosity_deviation: 10  # % from specification
+    test_structure_success: true
+    
+  # Performance metrics
+  metrics:
+    resolution_test: "200 nm lines"
+    adhesion_test: "Tape test"
+    mechanical_test: "Gentle probe"
+
+# Troubleshooting Guide
+# ---------------------
+troubleshooting:
+  poor_polymerization:
+    causes:
+      - "Expired or degraded resist"
+      - "Insufficient power"
+      - "Oxygen inhibition"
+    solutions:
+      - "Use fresh batch"
+      - "Increase power by 20-30%"
+      - "Work under nitrogen or use oil immersion"
+      
+  poor_adhesion:
+    causes:
+      - "Contaminated substrate"
+      - "No adhesion promoter"
+      - "Under-exposed first layer"
+    solutions:
+      - "Clean substrate thoroughly"
+      - "Apply silane coupling agent"
+      - "Increase first layer dose by 50%"
+      
+  excessive_shrinkage:
+    causes:
+      - "Normal behavior for IP-Dip"
+    solutions:
+      - "Use shrinkage compensation in CAD"
+      - "Consider Ormocomp for lower shrinkage"
+      
+  structure_collapse:
+    causes:
+      - "Air drying high aspect ratio"
+      - "Under-polymerization"
+    solutions:
+      - "Use critical point drying"
+      - "Increase exposure dose"
+
+# Performance Benchmarks
+# ----------------------
+benchmarks:
+  # Resolution test (optimal conditions)
+  resolution_test:
+    line_width: 180     # nm (minimum reliably achieved)
+    line_spacing: 250   # nm (minimum gap)
+    aspect_ratio: 20    # maximum (height:width)
+    
+  # Speed test
+  speed_test:
+    structure_size: "50 × 50 × 50 μm"
+    fabrication_time: 25  # minutes
+    voxel_rate: 5e7     # voxels/second
+    
+  # Quality metrics
+  quality:
+    surface_roughness: 20  # nm RMS
+    dimensional_accuracy: 100  # nm
+    reproducibility: 3  # % variation
+
+# References and Citations
+# ------------------------
+references:
+  - "Nanoscribe IP-Dip Technical Datasheet"
+  - "Ovsianikov et al., ACS Nano 2, 2257 (2008)"
+  - "LaFratta et al., Angew. Chem. 46, 6238 (2007)"
+
+# Notes
+# -----
+notes: |
+  IP-Dip is the gold standard photoresist for two-photon lithography.
+  
+  ADVANTAGES:
+  - Excellent resolution (< 200 nm)
+  - High sensitivity (low threshold power)
+  - Fast writing speed possible
+  - Well-characterized and documented
+  - Commercial support available
+  
+  DISADVANTAGES:
+  - Expensive (~50 EUR/mL)
+  - Moderate shrinkage (12%)
+  - Requires careful storage
+  - Limited shelf life once opened
+  
+  BEST FOR:
+  - High-resolution structures
+  - Photonic crystals
+  - Prototype development
+  - Research applications
+  
+  For large structures or production, consider IP-S (lower cost, faster)
+  For low shrinkage, consider Ormocomp (<5% shrinkage)
+
+# Configuration metadata
+config_version: "1.0"
+last_modified: "2024-12-09"
+modified_by: "Zeyad Mustafa"
+validated: true
+validation_date: "2024-12-09"
