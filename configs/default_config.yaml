@@ -1,0 +1,432 @@
+# Default Configuration for Two-Photon Lithography System
+# ========================================================
+#
+# This file contains the default system configuration.
+# Copy and modify for your specific setup.
+#
+# Author: Zeyad Mustafa
+# Date: December 2024
+# BTU Cottbus-Senftenberg
+# Version: 1.0
+
+# System Information
+# ------------------
+system:
+  name: "TPL-System-001"
+  location: "BTU Cottbus Lab"
+  operator: "Zeyad Mustafa"
+  installation_date: "2024-12-01"
+  last_calibration: "2024-12-09"
+
+# Laser Configuration
+# -------------------
+laser:
+  # Laser type and basic parameters
+  type: "Ti:Sapphire"
+  manufacturer: "Coherent"  # or "Spectra-Physics", etc.
+  model: "Chameleon Ultra II"
+  
+  # Wavelength settings
+  wavelength: 780  # nm (nominal)
+  wavelength_range: [700, 1000]  # nm (tunable range)
+  wavelength_tolerance: 5  # nm (acceptable deviation)
+  
+  # Power specifications
+  max_power_output: 4000  # mW (at laser output)
+  max_power_sample: 100   # mW (maximum allowed at sample)
+  min_power_sample: 1     # mW (minimum detectable)
+  default_power: 20       # mW (starting value)
+  power_stability: 2      # % (RMS fluctuation)
+  
+  # Pulse characteristics
+  pulse_duration: 100     # fs (femtoseconds)
+  pulse_duration_range: [70, 150]  # fs
+  repetition_rate: 80e6   # Hz (80 MHz)
+  repetition_rate_adjustable: false
+  
+  # Beam quality
+  beam_quality_m2: 1.1    # M² factor
+  polarization: "linear"  # "linear" or "circular"
+  
+  # Communication
+  control_interface: "serial"
+  port: "/dev/ttyUSB0"    # Linux: /dev/ttyUSBX, Windows: COMX
+  baudrate: 9600
+  timeout: 5              # seconds
+  
+  # Safety
+  interlock_enabled: true
+  shutter_type: "mechanical"
+  emergency_stop_pin: 17  # GPIO pin for emergency stop
+  
+  # Warm-up and calibration
+  warmup_time: 1800       # seconds (30 minutes)
+  calibration_interval: 604800  # seconds (1 week)
+  power_meter_port: "/dev/ttyUSB2"
+
+# Stage Configuration
+# -------------------
+stage:
+  # Stage type
+  type: "piezo"
+  manufacturer: "Physik Instrumente"
+  model: "P-563.3CD"
+  
+  # Travel ranges
+  range_x: 200    # μm
+  range_y: 200    # μm
+  range_z: 200    # μm
+  
+  # Resolution and accuracy
+  resolution_xy: 1    # nm (minimum step)
+  resolution_z: 1     # nm (minimum step)
+  accuracy_xy: 10     # nm (positioning accuracy)
+  accuracy_z: 5       # nm (focusing accuracy)
+  repeatability: 5    # nm
+  
+  # Speed limits
+  max_speed: 100000   # μm/s
+  default_speed: 50000  # μm/s
+  acceleration: 50000   # μm/s²
+  
+  # Communication
+  control_interface: "serial"
+  port: "/dev/ttyUSB1"
+  baudrate: 115200
+  timeout: 10
+  
+  # Homing and limits
+  homing_required: true
+  home_position: [100, 100, 100]  # μm (center)
+  soft_limits_enabled: true
+  hardware_limits_enabled: true
+  
+  # Closed-loop control
+  feedback_enabled: true
+  encoder_type: "capacitive"
+  settle_time: 50  # ms (time to settle after move)
+
+# Optical System
+# --------------
+optics:
+  # Objective lens
+  objective:
+    magnification: 63
+    numerical_aperture: 1.4
+    working_distance: 100  # μm
+    immersion_medium: "oil"
+    immersion_ri: 1.518
+    correction: "infinity"
+    transmission_780nm: 0.75  # 75% transmission
+    
+  # Tube lens
+  tube_lens:
+    focal_length: 200  # mm
+    
+  # Beam expander
+  beam_expander:
+    magnification: 2
+    enabled: true
+    
+  # Filters and mirrors
+  dichroic_mirror:
+    type: "short-pass"
+    cutoff_wavelength: 750  # nm
+    transmission_780nm: 0.90
+    
+  # Total transmission (laser to sample)
+  total_transmission: 0.65  # 65% (includes all losses)
+
+# Material Settings (Default: IP-Dip)
+# ------------------------------------
+material:
+  name: "IP-Dip"
+  type: "photoresist"
+  manufacturer: "Nanoscribe GmbH"
+  batch: "2024-10-15"
+  expiration_date: "2025-10-15"
+  
+  # Optical properties
+  refractive_index: 1.52
+  transmission_780nm: 0.95  # 95% transmission
+  absorption_coefficient: 0.1  # cm⁻¹
+  
+  # Two-photon properties
+  tpa_cross_section: 120  # GM (Göppert-Mayer units)
+  photoinitiator: "Proprietary"
+  photoinitiator_concentration: 0.03  # weight fraction
+  
+  # Physical properties
+  viscosity: 50       # mPa·s
+  density: 1.1        # g/cm³
+  shrinkage: 12       # % (volumetric)
+  
+  # Processing parameters
+  development:
+    developer: "PGMEA"
+    time: 20          # minutes
+    temperature: 22   # °C
+    agitation: "gentle"
+  
+  rinsing:
+    solvent: "IPA"
+    time: 2           # minutes per rinse
+    number_of_rinses: 2
+    
+  drying:
+    method: "critical_point"  # "critical_point" or "air"
+    
+  post_cure:
+    uv_exposure: 20   # minutes
+    temperature: 150  # °C (optional thermal cure)
+    
+  # Storage
+  storage_temperature: 4  # °C
+  storage_conditions: "dark, sealed"
+
+# Default Fabrication Parameters
+# -------------------------------
+fabrication:
+  # Exposure parameters
+  power: 20           # mW (at sample)
+  scan_speed: 50000   # μm/s
+  
+  # Layer parameters
+  layer_height: 0.3   # μm
+  hatch_distance: 0.5 # μm
+  
+  # First layer (adhesion)
+  first_layer:
+    power_multiplier: 1.2  # 20% more power
+    speed_multiplier: 0.5  # Half speed
+    
+  # Fill patterns
+  fill_pattern: "rectilinear"  # "rectilinear", "concentric", "spiral"
+  infill_density: 100  # % (100 = solid)
+  
+  # Multi-pass
+  num_passes: 1
+  pass_delay: 0       # seconds between passes
+  
+  # Toolpath optimization
+  optimize_travel: true
+  bidirectional_scan: true
+  retraction_enabled: false
+  
+  # Safety margins
+  substrate_clearance: 5  # μm (minimum z above substrate)
+  edge_margin: 10     # μm (avoid substrate edges)
+
+# Calibration Settings
+# ---------------------
+calibration:
+  # Power calibration
+  power_calibration:
+    reference_powers: [10, 20, 30, 40, 50]  # mW
+    tolerance: 5      # % acceptable deviation
+    frequency: "weekly"
+    
+  # Stage calibration
+  stage_calibration:
+    grid_size: 50     # μm
+    grid_points: 9    # 3×3 grid
+    tolerance: 50     # nm
+    frequency: "monthly"
+    
+  # Focus calibration
+  focus_calibration:
+    method: "interface"  # "interface" or "fluorescence"
+    substrate_ri: 1.52
+    frequency: "daily"
+    
+  # Beam alignment
+  beam_alignment:
+    centering_tolerance: 10  # μm
+    frequency: "weekly"
+
+# Monitoring and Logging
+# ----------------------
+monitoring:
+  # Data logging
+  logging:
+    enabled: true
+    level: "INFO"  # "DEBUG", "INFO", "WARNING", "ERROR"
+    log_directory: "logs/"
+    max_file_size: 10  # MB
+    backup_count: 5
+    
+  # Real-time monitoring
+  realtime:
+    enable_camera: true
+    camera_index: 0
+    frame_rate: 10    # fps
+    
+  # Power monitoring
+  power_monitoring:
+    enabled: true
+    interval: 1       # seconds
+    alarm_threshold: 10  # % deviation triggers alarm
+    
+  # Position monitoring
+  position_monitoring:
+    enabled: true
+    check_frequency: 100  # Hz
+
+# Safety and Alarms
+# -----------------
+safety:
+  # Laser safety
+  laser_class: 4
+  safety_goggles_required: true
+  area_interlocked: true
+  
+  # Power limits
+  power_limits:
+    absolute_max: 100  # mW (hardware limit at sample)
+    software_max: 50   # mW (configurable limit)
+    
+  # Position limits
+  position_limits:
+    enforce_soft_limits: true
+    emergency_stop_enabled: true
+    
+  # Temperature monitoring
+  temperature:
+    laser_max: 40     # °C
+    ambient_max: 28   # °C
+    alarm_threshold: 35  # °C
+    
+  # Alarm actions
+  alarms:
+    power_deviation: "pause"     # "pause", "stop", "continue"
+    position_error: "stop"
+    temperature_high: "pause"
+    interlock_open: "stop"
+
+# Environment
+# -----------
+environment:
+  temperature:
+    target: 23        # °C
+    tolerance: 1      # °C
+    
+  humidity:
+    target: 45        # % RH
+    tolerance: 10     # % RH
+    
+  vibration_isolation: true
+  acoustic_isolation: true
+
+# Data Management
+# ---------------
+data:
+  # Output directories
+  output_dir: "output/"
+  geometry_dir: "data/designs/stl_files/"
+  toolpath_dir: "data/designs/gcode/"
+  results_dir: "data/experimental_results/"
+  
+  # File formats
+  geometry_format: "stl"  # "stl", "obj"
+  toolpath_format: "gcode"  # "gcode", "json"
+  
+  # Backup
+  backup_enabled: true
+  backup_dir: "backups/"
+  backup_frequency: "daily"
+  
+  # Metadata
+  save_metadata: true
+  include_timestamp: true
+  include_parameters: true
+
+# Software Settings
+# -----------------
+software:
+  version: "1.0.0"
+  debug_mode: false
+  verbose: true
+  
+  # Performance
+  threading_enabled: true
+  max_threads: 4
+  
+  # Visualization
+  visualization:
+    enabled: true
+    backend: "matplotlib"  # "matplotlib", "pyqt5"
+    dpi: 150
+    
+  # Units
+  units:
+    length: "um"      # μm
+    power: "mW"       # milliwatts
+    time: "s"         # seconds
+    speed: "um/s"     # μm/s
+
+# Presets for Common Applications
+# --------------------------------
+presets:
+  high_resolution:
+    power: 18
+    speed: 30000
+    layer_height: 0.2
+    hatch_distance: 0.3
+    description: "Maximum resolution, slower fabrication"
+    
+  high_speed:
+    power: 28
+    speed: 80000
+    layer_height: 0.5
+    hatch_distance: 0.7
+    description: "Fast fabrication, moderate resolution"
+    
+  balanced:
+    power: 22
+    speed: 50000
+    layer_height: 0.3
+    hatch_distance: 0.5
+    description: "Good balance of speed and quality"
+    
+  photonic_crystal:
+    power: 20
+    speed: 60000
+    layer_height: 1.0
+    hatch_distance: 0.4
+    description: "Optimized for woodpile structures"
+    
+  microfluidics:
+    power: 25
+    speed: 40000
+    layer_height: 0.5
+    hatch_distance: 0.6
+    description: "Robust channels and chambers"
+
+# Notes and Comments
+# ------------------
+notes: |
+  This is the default configuration file for the TPL system.
+  
+  IMPORTANT:
+  - Always verify power at sample before fabrication
+  - Check focal position before each session
+  - Use fresh photoresist within expiration date
+  - Maintain proper environmental conditions
+  
+  CUSTOMIZATION:
+  - Copy this file to create custom configurations
+  - Override specific parameters as needed
+  - Save material-specific configs in configs/material_configs/
+  
+  SAFETY:
+  - Never exceed maximum power limits
+  - Always wear laser safety goggles
+  - Ensure interlocks are functional
+  - Follow institutional safety protocols
+  
+  For questions or issues, contact: zeyad.mustafa@b-tu.de
+
+# Configuration file version
+config_version: "1.0"
+last_modified: "2024-12-09"
+modified_by: "Zeyad Mustafa"
